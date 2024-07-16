@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	h1{
+		background-color: orange;
+	}
+	.red{
+		color: red;
+		border: 3px dotted red;
+	}
+	.blue {
+		color: blue;
+		border: 3px dotted blue;
+	}
+</style>
+<!-- jquery Google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- <script src="../js/jquery-3.7.1.min.js"></script> -->
+<script>
+	$(function(){
+		$("#images").on("mouseenter", f3);
+		$("#images").on("mouseleave", f4);
+		
+		var obj = {"mouseenter":f5, "mouseleave":f6 };
+		//$("h1").on(obj);
+		//$("h1").first().on(obj);
+		$("h1").hover(f5, f6);
+		$("button").first().on("click", f2);
+		$("button").eq(1).on("click", function(){
+			$("h1").off("mouseenter");
+			$("h1").off("mouseleave");
+		});
+		//trigger: 이벤트 강제 발생
+		$("button").eq(2).on("click", function(){
+			$("button").first().trigger("click");
+		});
+		//keyup : 키보드에서 손을 뗄 때 발생하는 이벤트
+		$("#userid").on("keyup", f7 );
+		$("#userid").on("change", f8 );
+		$("input[name='gender']").on("change", f8 );
+		$("#select").on("selected", f8);
+	});
+	function f8(){
+		alert($(this).val());		
+	}
+	function f7(){
+	 $("#userid2").text($(this).val());		
+	}
+	function f6(){
+		$(this).addClass("red");
+		$(this).removeClass("blue");
+	}
+	function f5(){
+		$(this).addClass("blue");
+		$(this).removeClass("red");
+	}
+	function f2(){
+		//$("h1").first().appendTo("#here");
+		$("h1").first().clone().appendTo("#here");
+		$("h1").first().clone().appendTo("#here");
+		$("h1").first().clone().appendTo("#here");
+		$("#here").append($("h1").first().clone());
+		$("#here").append($("#images>img").first().clone());
+	}
+	function f3(){
+		timer = setInterval(f, 1000); //1초마다 f함수를 수행.
+	}
+	function f(){
+		//(이거를).appendTo(이것 마지막에 붙인다) 
+		$("#images>img").first().appendTo("#images");
+	}
+	function f4(){
+		clearInterval(timer);
+	}
+</script>
+</head>
+<body>
+	<h1>문서 객체 이동</h1>
+	<button>h1태그를 #here로 이동</button>
+	<button>이벤트 제거</button>
+	<button>trigger(이벤트 강제 발생)</button>
+	<hr>
+	<select id="select">
+		<option>A</option>
+		<option>B</option>
+		<option>C</option>
+	</select>
+	<input type="radio" name="gender" value="여자">여자
+	<input type="radio" name="gender" value="남자">남자
+	<hr>
+	<input type="checkbox" value="ALL" id="allcheck">
+	<label>ALL</label>
+	<div id="checkItem">
+		<input type="checkbox" name="hobby" value="등산">
+		<label>등산</label>
+		<input type="checkbox" name="hobby" value="게임">
+		<label>게임</label>
+		<input type="checkbox" name="hobby" value="코딩">
+		<label>코딩</label>
+	</div>
+	<hr>
+	<script>
+		$(function(){
+			$("#allcheck"). on("change", call); //=change();
+			function call(){
+				//console.log($(this));
+				console.log($(this).prop("checked"));//jquery
+				
+				if(this.checked){//js
+					$("#checkItem").children().prop("checked", true);
+				}else{
+					$("#checkItem").children().prop("checked", false);
+				}
+			}
+				
+		});
+	</script>
+	<input id="userid" placeholder="문자열 쓰고 드래그 해보기">
+	<p id="userid2">이부분</p>
+	<hr>
+	<div id="images" style="border:1px solid gray">
+		<img alt="1" src="../0_day6/images/img1.jpg">
+		<img alt="2" src="../0_day6/images/img2.jpg">
+		<img alt="3" src="../0_day6/images/img3.jpg">
+		<img alt="4" src="../0_day6/images/img4.jpg">
+		<img alt="5" src="../0_day6/images/img5.jpg">
+		<!-- 맨 앞의 img를 뒤로 붙이기 -->
+	</div>
+	<div id="here">
+		<h1>여기</h1>
+	</div>
+</body>
+</html>

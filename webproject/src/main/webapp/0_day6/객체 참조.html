@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>객체 참조</title>
+<script type="text/javascript">
+	var user2 = {
+	    name: "tom",
+	    id: 123,
+	};
+	var user4 = user2;
+	user4.name = "Jack";
+	console.log(user2.name); // Jack 
+	
+	var user1 = {
+		name : "tom"
+	};
+	function changeName1(obj) {
+		obj.name = "Jack";
+	}
+	changeName1(user1);
+	console.log(user1.name); //Jack, 이름이 바뀜.
+	
+	
+	var user = "Tom";
+	function changeName(val){//"Tom"이 들어옴.
+ 	    val = "Jack"; 
+		//val은 전역변수가 될 뿐이다. user의 값을 바꾸진 못함.
+		//(val)의 Tom은 사용한 적이 없다.
+		//val과 (val)은 다른 변수로 보면 됨.
+	};
+	changeName(user);//함수에 "Tom"을 보냄.
+	console.log(user);  // Tom, 이름이 바뀌지 않음
+</script>
+</head>
+<body>
+
+</body>
+</html>

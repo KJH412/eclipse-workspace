@@ -1,0 +1,42 @@
+1715071253485	Delete elements
+1715071356677	Rename resource 'login.html'
+1715071437746	Rename resource 'login.jsp'
+1715127445182	Rename resource 'auto'
+1715127450545	Move 2 resources to 'auth'
+1715127822053	Copy file
+1715127902523	Delete element
+1715128270211	Copy package
+1715128283062	Rename package 'com.movie.controller'
+1715128289197	Rename package 'com.movie.dao'
+1715128297713	Rename package 'com.movie.util'
+1715128302821	Rename package 'com.movie.service'
+1715128310070	Rename package 'com.movie.dto'
+1715128316120	Rename package 'com.movie.filter'
+1715128372111	Delete element
+1715130115773	Copy file
+1715130134360	Delete element
+1715130426966	Delete element
+1715130432978	Delete element
+1715134032101	Rename resource 'home.jsp'
+1715134041151	Delete element
+1715146732917	Rename type 'MovieAllServlet'
+1715148063655	Move '파묘.jpg' to 'poster'
+1715148240816	Rename resource '파묘.jpg'
+1715148745732	Copy file
+1715148747691	Copy file
+1715148748686	Copy file
+1715148749090	Copy file
+1715148749650	Copy file
+1715148750040	Copy file
+1715148750514	Copy file
+1715148751026	Copy file
+1715148751536	Copy file
+1715150998670	Move 'myPage.jsp' to 'member'
+1715151004868	Move 'memberInsert.jsp' to 'member'
+1715151268127	Delete element
+1715154315668	Delete element
+1715213749854	Delete element
+1715218169663	Delete element
+1715224847790	Move 'movieDetail.jsp' to 'movie'
+1715237503184	Delete element
+1715318032975	Rename resource 'movieListSearch.jsp'

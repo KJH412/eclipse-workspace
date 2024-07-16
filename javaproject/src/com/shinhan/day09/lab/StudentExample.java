@@ -1,0 +1,32 @@
+package com.shinhan.day09.lab;
+
+import java.util.HashSet;
+//편한걸로 사용하면 된다.
+public class StudentExample {
+	public static void main(String[] args) {
+		// Student를 저장하는 HashSet 생성
+		HashSet<Student> hashSet = new HashSet<Student>();
+		HashSet<StudentVO> hashSet2 = new HashSet<StudentVO>();//(롬복 사용)
+		HashSet<StudentRecord> hashSet3 = new HashSet<StudentRecord>(); //record사용
+
+		// Student 저장
+		hashSet.add(new Student("1"));
+		hashSet.add(new Student("1")); // 같은 학번이므로 중복 저장이 안됨
+		hashSet.add(new Student("2"));
+
+		// Student 저장(롬복 사용)
+		hashSet2.add(new StudentVO("1"));
+		hashSet2.add(new StudentVO("1"));
+		hashSet2.add(new StudentVO("2"));
+
+		// Student 저장(record 사용)
+		hashSet3.add(new StudentRecord("1"));
+		hashSet3.add(new StudentRecord("1"));
+		hashSet3.add(new StudentRecord("2"));
+
+		// 저장된 Student 수 출력
+		System.out.println("저장된 Student 수: " + hashSet.size());
+		System.out.println("저장된 Student 수: " + hashSet2.size());
+		System.out.println("저장된 Student 수: " + hashSet3.size());
+	}
+}

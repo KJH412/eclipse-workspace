@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CSS display 속성</title>
+<style>
+* {
+	box-sizing: border-box;
+}
+
+nav ul {
+	list-style: none;
+	font-size: 0;
+}
+nav ul li {
+	display: inline-block;
+ 	padding: 20px;
+ 	font-size: 20px;
+	/* margin: 0 20px;  */
+	border: 1px solid #222;
+	background-color: black;
+	color: #fff;
+}
+li:nth-child(1){
+	border-top-left-radius: 25%;
+	border-bottom-left-radius: 25%;
+}
+li:last-child{
+	border-top-right-radius: 25%;
+	border-bottom-right-radius: 25%;
+}
+a{
+	text-decoration: none;
+	color: #fff;
+}
+
+</style>
+</head>
+<body>
+	<nav>
+		<ul>
+			<li><a href="../0_day1/jsp/empAll.jsp">직원조회</a></li>
+			<li>직원입력</li>
+			<li>부서조회</li>
+			<li>부서입력</li>
+		</ul>
+	</nav>
+</body>
+</html>

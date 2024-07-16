@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jquery2</title>
+<style type="text/css">
+	#here{
+		border: 1px solid gray;
+	}
+	
+	.myli {
+		background-color: yellow;
+		border: 5px dotted blue;
+	}
+	
+</style>
+<!-- jquery Google CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+	//배열  $.each()
+	var arr = ["HTML5", "CSS3", "JavaScript", "jQuery"];
+	//$(document).ready생략
+	$(function(){
+		//load되고 나서 수행한다. arr을 loop돌면서 함수 수행
+		var output ="<ul>";
+		$.each(arr, function(index, item){
+			//output += "<li>" + item + "</li>";
+			output += `<li>${item}</li>`;
+		});
+		
+		$("h1").each(function(index, data){
+			//$(data).text()는 jquery
+			//${}는 백틱문법
+			//${data}는 <h1>제목1</h1> = [object HTMLHeadingElement]
+			output += `<li>${index} -- ${ $(data).text() }</li>`; 
+		});
+		
+		output += "</ul>";
+		$("#here").html(output);
+		
+		//$("#btn1").click(function(){}); 
+		$("#btn1").on("click", function(){
+			$("li").css("color", "red");
+			$("li").addClass("myli"); //스타일이 정의 된 class를 붙인다.
+		});
+		$("#btn2").on("click", function(){
+			$("li").removeClass("myli");
+		});
+		//확장$.extend();
+		$("#btn3").on("click", function(){
+			var obj1 = {name:"홍길동", age:20};
+			var obj2 = {주소:"마포구 연남동", phone:"010-7896-4563"};
+			$.extend(obj1, obj2, {전공:"컴공", 취미:"게임"});
+			
+			$.each(obj1, function(key, data){
+				console.log(key + "==>" + data);
+			});
+		});
+		//jQuery대신에 $를 사용했는데.....사용하지 않음이라고 설정.
+		//$.noConflict(); => 사용하고 나면 $를 더이상 사용할 수 없음.
+		
+		$("#btn4").on("click", function(){
+			
+			//$("h1:even").css("background-color", "orange");
+			//$("h1").filter(":even").css("background-color", "orange"); //짝수
+			$("h1").filter(function(index, data){ 
+				//console.log(index, data); //여기서 data는 element:<h1>제목1</h1> ...
+				//console.log($(data).text());
+				//if($(data).text().indexOf("2") >= 0) return true;
+				//return false;
+				
+				//indexOf:위치찾기(순서), includes:포함하는 것(true,false)
+				return $(data).text().includes("2");
+				
+			}).css("background-color", "lime");
+			//체인방식(체이닝)
+		});
+		
+		//end():한단계 위로 올린다.
+		$("#btn5").on("click", function() {
+			$("h1").css("border", "1px solid gray")
+			.filter(":even").css("backgroundColor", "orange").end()
+			.filter(":odd").css("backgroundColor", "blue"); // 짝수 중에서 홀수
+		});
+		
+		//eq() : (0~i)순서에 해당하는 객체를 찾음
+		$("#btn6").on("click", function() {
+			$("h1").first().css("color", "blue");
+			$("h1").eq(1).css("color", "green"); // 0부터 시작
+			$("h1").eq(2).css("color", "red");
+			$("h1").last().css("color", "pink");
+			// eq(-1) 음수는 뒤 부터
+			$("h1").eq(-1).css("background-color", "skyblue"); 
+			$("h1").eq(-2).css("background-color", "lightpink");
+		});
+	
+		$("#btn7").on("click", function() {
+            var result = $("#here2").children().is("p"); // 자식에 p가 있는지?
+            var result = $("#here2").children().is(".aa"); // 자식에 p가 있는지?
+            console.log($("#here2").children());
+            console.log(result);
+        });
+		//문자열로 객체로 변경 $.parseXML()
+		$("#btn8").on("click", function() {
+			var xmlStr = "\
+				<friends> \
+					<friend> \
+						<name>홍길동</name>\
+						<age>20</age>\
+					</friend>\
+					<friend> \
+						<name>홍길동</name>\
+						<age>20</age>\
+					</friend>\
+				</friends>\
+			";
+			var obj = $.parseXML(xmlStr);  //문자열 -> 객체
+			$(obj).find("friend").each(function(index, item){
+				console.log($(item).find("name").text());
+			});
+		});
+		$("#btn9").on("click", function() {
+           $(this).parent().css({"border":"5px solid lime", "padding":"20px"});
+           $(this).text("비활성화하기");
+           $(this).parent().find("span").text("활성화");
+        });
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+	<h1>제목1</h1>
+	<h1>제목21</h1>
+	<h1>제목32</h1>
+	<h1>제목4</h1>
+	<h1>제목5</h1>
+	<div id="here"></div>
+	<button id="btn1">li에 css적용</button>
+	<button id="btn2">li에 css삭제</button>
+	<button id="btn3">객체 확장(extend)</button>
+	<button id="btn4">filter</button>
+	<button id="btn5">end(한단계 올리기)</button>
+	<button id="btn6">eq(), first(), last()</button>
+	<button id="btn7">is()</button>
+	<button id="btn8">parseXML</button>
+	<div id="here2">
+		<p>pppppppppppppppp</p>
+	</div>
+	<hr>
+	<div>
+		<span>비활성화</span>
+		<button id="btn9">활성화하기</button>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

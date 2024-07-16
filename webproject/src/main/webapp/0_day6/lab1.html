@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+div{
+	border: 1px solid #eee;
+	padding: 10px;
+}
+</style>
+<script type="text/javascript">
+	window.onload = init;
+	function init() {
+		timer = setInterval(change, 1000);
+
+		var count = 1;
+		//방법1
+		function change() {
+			var img = document.querySelector("#img");
+			count = count++ % 10 + 1; //(1%10나머지)1+1 = 2
+			img.setAttribute("src", `images/img${count}.jpg`);
+		}
+		//방법2
+		/* function change(){
+			var img = document.querySelector("#img");
+			count ++;
+			img.setAttribute("src",`images/img${count}.jpg`);
+			if(count>=10){count=0}
+		} */
+
+		//마우스 움직이면 중지.
+		window.onmousemove = function() {
+			clearInterval(timer);
+		}
+	}
+</script>
+</head>
+<body>
+	<div>
+		<h3>1초에 한 번씩 이미지를 순차적으로 변환시키기</h3>
+		<p>단, 이미지는 9개가 있습니다. 9개까지 출력된 경우, 다시 첫번째 이미지부터 출력</p>
+		<img alt="이미지" src="images/img1.jpg" id="img">
+	</div>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+/*
+	var arr = [10,20,30]; //{0:10, 1:20, 2:30}
+	console.log(arr[0]);
+	
+	//키가 숫자도 가능 (키:속성값)
+	var obj = {
+		1:"홍길동", 
+		2:20, 
+		"전공":"컴공", 
+		과목:"JavaScript", 
+		"자기 소개": "hihi",
+		go: function(){alert("go함수");}
+	};
+	console.log(obj["1"]);
+	console.log(obj["2"]);
+	console.log(obj.전공);
+	console.log(obj["전공"]);
+	console.log(obj["과목"]);
+	console.log(obj.과목);
+	console.log(obj["자기 소개"]);
+	//console.log(obj.자기 소개); //공백있는경우 X
+	console.log(obj.go);
+	//obj.go();
+	
+	for(let pro in obj){
+		console.log(obj[pro]); //obj의 속성값을 모두 볼 수 있다.
+	}
+*/	
+</script>
+</head>
+<body>
+	<button>Object의 속성 동적 추가</button>
+	<button>Object의 배열</button>
+	<button>복사</button>
+	<button>생성자함수</button>
+	<button>기본타입/참조타입</button>
+	<button>forEach/map</button>
+	<button>JSON</button>
+	<button>예외처리</button>
+	<button>class</button>
+	<hr>
+	<div id="here">본문</div>
+	<!-- underscorejs -->
+	<script src="https://cdn.jsdelivr.net/npm/underscore@1.13.6/underscore-umd-min.js"></script>
+	<!-- js -->
+	<script>
+		document.querySelector("button:first-child").addEventListener("click", f1);
+		document.querySelector("button:nth-child(2)").addEventListener("click", f2);
+		document.querySelector("button:nth-child(3)").addEventListener("click", f3);
+		document.querySelector("button:nth-child(4)").addEventListener("click", f4);
+		document.querySelector("button:nth-child(5)").addEventListener("click", f5);
+		document.querySelector("button:nth-child(6)").addEventListener("click", f6);
+		document.querySelector("button:nth-child(7)").addEventListener("click", f7);
+		document.querySelector("button:nth-child(8)").addEventListener("click", f8);
+		document.querySelector("button:nth-child(9)").addEventListener("click", f9);
+		
+		function f9(){
+			var s1 = new Student2("은정", 100, 90, 80); //생성자
+			console.log(s1);
+			console.log(s1.toString());
+		}
+		//클래스 정의
+		class Student2{
+			//constructor를 써주어야 함.
+			constructor(name, java, sql, js){ //생성자의 파라미터 개수 맞춰야 한다.
+				this.name = name;
+				this.java = java;
+				this.sql = sql;
+				this.js = js;
+			}	
+			//클래스 내의 함수는 function예약어를 사용하지 않는다. function getSum X
+			getSum = function(){
+				return this.java + this.sql + this.js;
+			};
+			getAvg(){
+				return this.getSum()/3;
+			}
+			toString(){
+				return "이름은 "+ this.name + ", 평균은 " + this.getAvg();
+			}
+		}
+		
+		
+		function f8(){
+			//예외처리
+			try{
+				var arr = new Array(999999999999);//예외처리 하지 않으면 에러발생해서 바로 중단됨.
+			}catch(ex){
+				console.log(ex);
+				console.log(ex.message);
+				console.dir(ex);
+			}
+				console.log("success");
+		}
+		
+		function f7(){
+			//JSON(JavaScript Object Notation) : JavaScript Object 형태의 문자열
+			var student = {name:"홍길동10", java:100, sql:90, js:80};//<=자바스크립트 객체임. json이 아니다.
+			
+			//JavaScript Object => 문자열로 바꾸기
+			var str = JSON.stringify(student); //{name:"홍길동10", java:100, sql:90, js:80}
+			
+			console.log(student, typeof(student));
+			console.log(str, typeof(str)); //JSON문자열
+			
+			//console.log(str.java);//undefined
+			var student2 = JSON.parse(str); //다시 JS객체로 만든다.
+			
+			console.log(student2.java);
+			
+			
+		}
+		function f6(){
+			var arr = ["월요일", "화요일", "수요일", "토요일"];		
+			arr.sort(); //어센딩 기본
+			arr.forEach(function(data, seq, obj){ //값,순서,배열
+				console.log(seq+ "번째 => " +data);
+			}); 
+			
+			//data.charAt(0): 앞 한글자만 잘라서, arr.map:새 배열에 담는다.
+			var arr2 = arr.map(function(data){ return data.charAt(0)});
+			console.log(arr2);
+			
+			//filter 조건에 맞는 것(true)이면 리턴.
+			var arr = [1,2,3,4,5];
+			var arr2 = arr.filter(function(data){   
+				return data%2 ==0; //짝수만
+			});
+			console.log(arr2);
+		}
+		function f5(){
+			//기본자료형
+			var a = 10;  //자바 int는 a=10;
+			//객체자료형
+			var b = new Number(200); //자바는 Integer b = new Integer(20);
+			
+			console.log(a.toString(2)); //toString: object의 기본메서드
+			console.log(b.toString(2));
+			
+			//기본형은 속성 추가 불가, 객체형은 속성 추가 가능
+			b.f1 = function(){ return 100; };
+			console.log(b.f1());  //a.f1() -> X 오류
+			
+			//String객체
+			var s = "자바스크립트";
+			console.log(s.indexOf("스")); //2
+			
+			
+		}
+		//this는 현재 객체 자기자신
+		function f4(){
+			var arr = [];//배열
+			var arr2 = new Array();//배열
+			var num = new Number();
+			
+			var students = [];
+			students.push(new Student("홍길동1", 100, 90, 80)); //생성자 함수(맨 앞글자가 대문자)
+			students.push(new Student("홍길동4", 99, 90, 80)); 
+			students.push(new Student("홍길동3", 100, 90, 80)); 
+			students.push(new Student("홍길동5", 88, 90, 80)); 
+			students.push(new Student("홍길동2", 77, 90, 60)); 
+			console.log(students);
+			//prototype
+			Student.prototype.getSum = function(){return this.java + this.sql + this.js; };
+			Student.prototype.getAverage = function(){return this.getSum()/3};
+			Student.prototype.toString = function(){
+				return "!!!이름은 " + this.name+ " 평균은 " + this.getAverage();
+			};
+			
+			for(let index in students){
+				here.innerHTML += "<br>" + students[index];
+			}
+			
+			//var obj = Student("홍길동1", 100, 45, 99); undefined
+			var obj = new Student("홍길동1", 100, 45, 99); //new키워드 꼭 쓰기.
+			var sum = obj.getSum();
+			
+			
+		}
+		//자바스크립트의 최상위 객체는 Object이다.
+		//Object에는 toString()메서드 제동된다. 객체출력하면[Object Objcet]
+		//prototype : 생성자 함수를 이용해서 만든 객체들이 공유하는 공간.
+		function Student(name, java, sql, js){ //생성자에 의해 실행된다.
+			//객체 값 초기화
+			this.name = name;
+			this.java = java;
+			this.sql = sql;
+			this.js = js;
+			/* prototype으로 정의한다.
+			this.getSum = function(){return this.java + this.sql + this.js;};
+			this.getAverage = function(){return this.getSum()/3};
+			this.toString = function(){
+				return "이름은" + this.name+ "평균은:" + this.getAverage();
+			}
+			*/
+		}
+		
+		function f3(){
+			//값 복사
+			var score = 100;
+			var score2 = score; 
+			score = 200;
+			console.log(score, score2); //200,100
+			
+			//배열 복사
+			var arr = [10,20,30];
+			var arr2 = arr; //주소 복사(같은 곳을 참조한다.) 복제 안됨.
+			var arr3 = _.clone(arr); //underscorejs 복제. ()안의 오브젝트를 복사한다.
+			var arr4 = [...arr]; //전개연산자로 복제
+			
+			arr[0] = 99;
+			console.log(arr);  //99,20,30
+			console.log(arr2); //99,20,30
+			console.log(arr3); //10,20,30
+			console.log(arr4); //10,20,30
+			
+			//객체 복사
+			var obj = {name:"홍길동1", java:100, sql:90, js:80};
+			var obj2 = obj; //복제아님.
+			var obj3 = _.clone(obj);  //underscorejs 복제
+			var obj4 = {...obj}; //전개 연산자로 복제
+			obj.java = 99;
+			console.log(obj.java); //99
+			console.log(obj2.java); //99
+			console.log(obj3.java); //100
+			console.log(obj4.java); //100
+			
+			console.log(obj4); // {name:"홍길동1", java:100, sql:90, js:80}
+			
+			var scores = [10,4,9,23,20,11]; 
+			//scores.sort():문자로 sort됨.
+			//scores.sort(function(a,b){return a-b}); //어센딩 작은수~>큰수
+			//scores.sort(function(a,b){return b-a}); //디센딩 큰수~>작은수
+			//scores.sort((a,b) => b-a); //디센딩 큰수~>작은수
+			
+			//scores = _.sortBy(scores); //어센딩
+			scores = _.sortBy(scores).reverse(); //디센딩
+			console.log(scores);
+			
+		}
+		function f2(){
+			var students =[]; //배열
+			students.push({name:"홍길동10", java:100, sql:90, js:80}); //push 배열에 추가
+			students.push({name:"홍길동32", java:100, sql:94, js:70});
+			students.push({name:"홍길동13", java:100, sql:93, js:80});
+			students.push({name:"홍길동24", java:100, sql:91, js:60});
+			students.push({name:"홍길동15", java:100, sql:92, js:60});
+			
+			students = _.sortBy(students, "name")
+			
+			for(let index in students){
+				students[index].getSum = function(){
+					return this.java + this.sql + this.js;
+				};
+				students[index].getAverage = function(){
+					return this.getSum()/3; //에러
+				};
+				console.log(students[index].name, students[index].getSum(), students[index].getAverage());
+			}
+		}
+		function f1(){
+			var obj = {name:"홍길동"};			
+			obj.age = 20;
+			obj.major = "컴공";		
+			obj.myInfo = function(){
+				here.innerHTML = this.name + " : " + this.major;
+			};
+			obj.myInfo(); //함수를 실행해야 나타남.
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

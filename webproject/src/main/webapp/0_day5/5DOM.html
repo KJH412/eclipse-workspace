@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	window.onload = init;
+	function init(){
+		var nodeList = document.querySelectorAll("ul li"); //여러개 찾기		
+ 		var output = "";
+		for(let index=0; index<nodeList.length; index++){
+			output += nodeList[index].innerText;			
+		}
+		here.innerHTML = output;
+		
+		var tnode = document.createTextNode("자바스크립트");
+		var enode = document.createElement("h1"); //<h1></h1>
+		enode.appendChild(tnode); //<h1>자바스크립트</h1>
+		here.appendChild(enode);
+		here.innerHTML += "<h1>자바스크립트2</h1>";
+		here.innerHTML += "<img src='../17/images/coffee-blue.jpg'>";
+	}
+	function call(){
+		var obj = document.querySelector("div img");
+		obj.parentNode.removeChild(obj);
+		
+		var obj2 = document.querySelector("ul");
+		obj2.parentNode.removeChild(obj2);
+		
+	}
+</script>
+</head>
+<body>
+	<h1>DOM연습</h1>
+	<ul>
+		<li>HTML</li>
+		<li>CSS</li>
+		<li>JavaScript</li>
+	</ul>
+	<hr>
+	<button onclick="call()">이미지 삭제</button>
+	<div id="here">여기</div>
+</body>
+</html>

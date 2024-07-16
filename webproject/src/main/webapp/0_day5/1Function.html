@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- CSS -->
+
+<!-- JS -->
+
+
+</head>
+<body onload="alert('load완료')">
+	<h1>복습</h1>
+	<button class="btn btn-primary" onclick="f1()">변수의 범위</button>
+	<button class="btn btn-primary" onclick="f2()">변수의 범위2</button>
+	<button class="btn btn-primary" onclick="f3()">data타입</button>
+	<button class="btn btn-primary" onclick="f4()">함수</button>
+	<hr>
+	<div id="here">여기</div>
+	
+	<!-- JS -->
+	<script type="text/javascript">
+		//1.선언적 함수(이름이 있음)
+		function f4(){
+			//2.내부함수
+			call();
+			function call(){
+				here.innerHTML += "<hr>" + "내부함수";
+			}
+			//3.익명함수
+			var a = function(){
+				here.innerHTML += "<hr>" + "익명함수";
+			};
+			a();
+			(function(){
+				here.innerHTML += "<hr>" + "즉시실행함수";
+			})();
+			//5.화살표 함수
+			var aa = () => here.innerHTML += "<hr>" + "화살표 함수";
+			aa();
+			
+			//자바의 람다식 화살표 모양은 ->
+			var bb = (a,b) => a+b;
+			here.innerHTML += "<br>" + bb(10,20);
+			
+			var cc = (a,b) => {
+				document.getElementById("here").innerHTML += "<hr>" + "화살표 함수 argument와 return";
+				return a+b;
+			};
+				
+			var result = cc(30,20);
+			here.innerHTML += "<br>" + result;
+		};
+	</script>
+	
+	<!-- JS -->
+	<script type="text/javascript">
+		function f3(){
+			here.innerHTML += "<br> 변수값 ==> 타입"
+			var a;
+			here.innerHTML += "<br>" + a + "==>" + typeof(a);
+			a = 100.5;
+			here.innerHTML += "<br>" + a + "==>" + typeof(a);
+			a = "신한";
+			here.innerHTML += "<br>" + a + "==>" + typeof(a);
+			a = 10>20;
+			here.innerHTML += "<br>" + a + "==>" + typeof(a);
+			a = [1,2,3,"ㅁㅁ",true, {}, function(){}, []];
+			here.innerHTML += "<br>" + a + "==>" + typeof(a);
+			a = function(){};
+			here.innerHTML += "<br>" + a + "==>" + typeof(a);
+		}
+	</script>
+	
+	<!-- JS -->
+	<script type="text/javascript">
+		var a =100;
+		function f2(){
+			var b = 200;
+			let d = 400;
+			{//여러 문장 묶을 때 {}블럭 사용.
+				var c = 300;
+				let e = 500;
+			}
+			here.innerHTML = a+b+c+d; //e는 {}내부의 let지역변수라 에러난다.
+		}
+	</script>
+	
+	
+	<!-- JS -->
+	<script type="text/javascript">
+		//호이스팅 : var, function()맨 위로 올린다.
+		console.log(v1); //not define이 아니고 undefined이다.(오류아님)
+		//console.log(v2); //not define이므로 error. 프로그램 중단.
+		//f1(); //여기서 호출하면 f1()밖의 v2값이 아직 담기전에 함수가 먼저 실행돼서 때문에 에러 
+		
+		//전역변수
+		var v1 = 100; //제거 불가
+		v2 = 200; //제거 가능
+		function f1(){
+			var v3 = 300; //지역변수 local
+			v4 = 400; //전역변수 global
+			output = "금요일";
+			document.getElementById("here").innerHTML = output + (v1+v2+v3+v4);
+		};
+		f1();
+		//document.getElementById("here").innerHTML = v1+v2+v3+v4; //v3 로컬변수 에러
+		document.getElementById("here").innerHTML = v1+v2+v4;
+	</script>
+</body>
+</html>

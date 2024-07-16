@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+	size: input크기
+	maxlength:최대 입력 값 길이.
+	name: 서버에서 사용, 클라이언트도 사용.
+	id: 클라이언트에서만 사용, 문서 내에서 유일해야 한다. 여러개이어도 먼저 만나는 객체를 얻는다.
+ -->
+	<h1>입력양식 연습</h1>
+	<form action="inputConfirm.jsp" method="get" enctype="application/x-www-form-urlencoded">
+		1.text: <input autofocus="autofocus" name="input1" id="input1" value="5555" ><br>
+		2.text:<input name="input2" id="input1" type="text" size="10" maxlength="5"><br>
+		3.password: <input name="input3" type="password" " value="12345" required="readonly" /><br>
+		4.search: <input name="input4" type="search" placeholder="X표시 있음"><br>
+		5.url: <input name="input5" type="url" placeholder="url형태 http://주소"> <br>
+		6.email: <input name="input6" type="email" placeholder="xxx@xx.xxx"><br>
+		7.tel: <input name="input7" type="tel" pattern="[01]{3}-[0-9]{4}-[0-9]{4}"><br>
+		
+		<fieldset>
+			<legend>성별선택(radio는 서로 배타적)</legend>
+			<input name="gender" type="radio" value="F" checked="checked">여자
+			<input name="gender" type="radio" value="M">남자
+		</fieldset>
+		<fieldset>
+			<legend>전공선택(radio는 서로 배타적)</legend>
+			<input name="major" type="radio" value="A" checked="checked" >컴공
+			<input name="major" type="radio" value="B">경제
+			<input name="major" type="radio" value="C">독어독문
+		</fieldset>
+		<fieldset>
+			<legend>학습과목(checkbox는 서로 독립적이다.)</legend>
+			<input type="checkbox" name="subject" value="HTML">HTML5
+			<input type="checkbox" name="subject" value="CSS">CSS3
+			<input type="checkbox" name="subject" value="JS">JavaScript
+			<input type="checkbox" name="subject" value="JQ">JQuery
+			<input type="checkbox" name="subject" value="react">ReactJs
+			<!-- => 여러 개의 값이 넘어감! 배열 -->
+		</fieldset>
+		10.number: <input name="input8" type="number" value="10" min="10" max="100" step="10" /><br>
+		11.range: <input name="input9" type="range" value="10" max="100" step="10" /><br>
+		12.date: <input name="input10" type="date" /><br>
+		12.month: <input name="input11" type="month" /><br>
+		12.week: <input name="input12" type="week" /><br>
+		12.time: <input name="input13" type="time" /><br>
+		12.datetime: <input name="input14" type="datetime" /><br>
+		12.datetime-local: <input name="input15" type="datetime-local" /><br>
+		13.이미지(상대):<input type="image" src="../05/images/login.png" />
+		13.이미지(절대):<input type="image" src="/webproject/05/images/login.png" />
+		14.버튼:<input type="button" value="type이 버튼" onclick="alert('form안에 버튼 누름')" />
+		15.<textarea rows="10" cols="100" name="memo" ></textarea>
+		16.여러개 중에 선택 : <br>
+		
+		<select name="week2" multiple="multiple">
+			<option>월요일</option>
+			<option value=""TUE>화요일</option>
+			<option selected="selected">토요일</option>
+			<option>일요일</option>
+		</select>
+		<select name="week1">
+			<option>월요일</option>
+			<option value=""TUE>화요일</option>
+			<option selected="selected">토요일</option>
+			<option>일요일</option>
+		</select>
+		<br>
+		<input type="text" list="weekList" name="week3">
+		<datalist id="weekList">
+			<option>월요일</option>
+			<option>화요일</option>
+			<option>토요일</option>
+			<option>일요일</option>
+		</datalist>
+		
+		<br>
+		<input type="file" />
+		<input type="hidden" name="input16" value="신한금융" />
+		
+		
+		<img alt="" src="../05/images/login.png">
+		<button>form안에 버튼임.(submit수행됨.)</button>
+		<input type="submit" value="서버전송">
+		<!-- 
+		 1.type: submit, image : 서버전송(form의 action수행한다.)
+		 2.form안에 <button> (form의 action수행한다.)	 
+			 : button (버튼 클릭시 JavaScript 수행하기 위함)
+		 -->
+	</form>
+	<button>form밖 버튼임.</button>
+	
+	<button onclick="call()">ID값 얻기</button>
+	<script type="text/javascript">
+	/* 자바스크립트는 먼저 만나는 input의 id를 읽고, 서버는 name을 읽는다. */
+	function call(){
+		a = document.getElementById("input1").value;
+		console.log(a);
+	}
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- CSS -->
+<style type="text/css">
+	/*button:nth-of-type(1)*/
+</style>
+<!-- JS -->
+<script type="text/javascript">
+	//이벤트 : load, click 사건의 이름
+	//이벤트리스너(핸들러) : 동작의 이름, onload, onclick
+	
+	//onload : 이 window가 load가 완료되면 수행한다. (함수를 호출한다. callback함수)
+	window.onload = function(){
+		var hear = document.querySelector("#here");
+		var btn1 = document.querySelector("button:nth-of-type(1)");
+		var btn2 = document.querySelector("button:nth-of-type(2)");
+		var btn3 = document.querySelector("button:nth-of-type(3)");
+		var btn4 = document.querySelector("button:nth-of-type(4)");
+		var btn5 = document.querySelector("button:nth-of-type(5)");
+		var btn6 = document.querySelector("button:nth-of-type(6)");
+		
+		/* 함수를 따로 만들어서 넣어준다.
+		btn1.onclick = function(){
+			hear.innerHTML = this.innerHTML; //this는 btn1
+		}; 
+		btn1.onclick = f_button1(); //바로호출해버리면 undefined.(this가 btn2가 아니고 window가 되어버리기 때문.)
+		*/
+		btn1.onclick = f_button1; //호출() X. click되었을 때 실행하도록
+		btn2.onclick = f_button2;
+		btn3.onclick = f_button3;
+		btn4.onclick = f_button4;
+		btn5.onclick = f_button5;
+		btn6.onclick = f_button6;
+	};
+	
+	
+	function f_button6(){
+		here.innerHTML = Math.PI;
+		here.innerHTML += "<br>" + Math.random(); 
+		
+		//[LAB] 1~45사이의 정수 6개(중복없이)
+		var arr = [];
+		aa:while(arr.length <6){//0~5
+			var num = Math.floor(Math.random()*45)+1; //while안에 있어야 랜덤수 나옴.
+			/*
+			for(let i=0; i<arr.length; i++){
+				if(num == arr[i]) continue aa; //같은 수 나오면 다시 while로 돌아감.
+			}
+			*/
+			if(!arr.includes(num)) arr.push(num); //false이면 리턴
+			
+			arr.push(num);
+			console.log(arr);
+		}
+		here.innerHTML += "<hr>1~45사이의 정수 6개:<br>" + arr;
+	}
+	
+	function f_button5(){
+		var arr1 = [1,2,3];
+		var arr2 = ["자바", "자바스크립트", "스프링", "HTML"];
+		var arr3 = arr1.concat(arr2); //배열의 값이 합쳐져서 담김.
+		arr3.push("뒤에 추가");
+		arr3.unshift("앞에 추가");
+		here.innerHTML = arr3.join("***");
+		arr3.pop();
+		arr3.shift();
+		here.innerHTML += "<hr>" + arr3.join("***") ;
+		
+		/* splice : 리턴값은 삭제한 배열 요소, 배열 임의의 위치에 요소 추가 제거
+		arr.splice(start, deleteCount, el);
+		start - 수정할 배열 요소의 인덱스
+		deleteCount - 삭제할 요소 개수, 제거하지 않을 경우 0
+		el - 배열에 추가될 요소
+		*/
+		var arr4 = [100,200,300,400,500];
+		var arr5 = arr4.splice(2,3,"추가"); //시작, 갯수, 잘린 위치에 '추가' 
+		here.innerHTML += "<hr>원본: " + arr4;
+		here.innerHTML += "<hr>splice: " + arr5; 
+		
+		//slice
+		var arr4 = [100,200,300,400,500];
+		var arr5 = arr4.slice(2,4); //배열: 시작위치(0~4), 끝위치(1~5)
+		here.innerHTML += "<br>원본: " + arr4;
+		here.innerHTML += "<br>slice: " + arr5; 
+	}
+	function f_button1(){
+		here.innerHTML = this.innerHTML;
+	}
+	function f_button2(){
+		here.innerHTML = this.innerHTML;
+	}
+	function f_button3(){
+		var now = new Date(); //now는 객체 참조 변수
+		here.innerHTML = now; //Date 기본 문자
+		here.innerHTML += "<br>" + now.toLocaleDateString(); //()실행안하면 코드만 출력됨.
+		here.innerHTML += "<br>" + now.toLocaleTimeString();
+	}
+	function f_button4(){
+		var arr1 = [10,20,30];
+		var arr2 = new Array(10,20,30);
+		arr1.push(99);
+		arr2.push(88);
+		here.innerHTML += "<br>" + arr1 + "==>" + arr1.length;
+		here.innerHTML += "<br>" + arr2 + "==>" + arr2.length;
+	}
+	function call(){
+		//onsubmit: default이벤트이다. 무조건 서버로 간다. 취소가능
+		alert("서버에 전송되기 전");		
+		var userid = document.querySelector("#userid").value;
+		if(userid === 'admin'){
+			
+		}else{
+			//default이벤트 취소
+			return false;
+		}
+	}
+</script>
+</head>
+<body>
+	<h1>이벤트에 대하여...</h1>
+	<button class="btn btn-primary">이벤트이름/이벤트리스너(핸들러)</button>
+	<button class="btn btn-primary">이벤트연습</button>
+	<button class="btn btn-primary">내장객체(Date)</button>
+	<button class="btn btn-primary">내장객체(Array)</button>
+	<button class="btn btn-primary">내장객체(Array2)</button>
+	<button class="btn btn-primary">내장객체(Array3)</button>
+	<hr>
+	<!--onsubmit="return 함수()" retrun을 꼭 써줘야 한다. 
+		(retrun false인지 return true인지 내가 정하고 싶다면)
+		onsubmit은 default가 true이기 때문에 함수를 호출해서 false인지 true인지 리턴해줘야한다.
+	 -->
+	<form action="jstest.jsp" onsubmit="return call()">
+		아이디: <input id="userid">
+		<input type="submit" value="서버에 전송(submit)">
+		<button>서버에 전송2(submit와 같음)</button> <!-- form안에 버튼<button>도 submit을 수행함. -->
+		<input type="button" value="form내의 button" onclick="alert('button');">
+	</form>
+	<hr>
+	<div id="here">여기</div>
+	
+</body>
+</html>

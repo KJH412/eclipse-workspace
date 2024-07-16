@@ -1,0 +1,38 @@
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box; 
+  /* border-box==> 가로: width + border*2 + padding*2  */
+  /* content-box ==> 가로 : width */
+}
+
+#container{
+	width: 1200px;
+	margin: 20px auto;
+	border: 1px solid lime;
+}
+#header,#footer{
+	width: 100%;
+	height:120px;
+	background-color: #acacac;
+	text-align: center;
+	line-height: 120px
+}
+#sidebar{
+	width: 40%;
+	height: 600px;
+	float: left;
+	background-color: #e9e9e9;
+}
+main{
+	width:60%;
+	height:600px;
+	float:left;
+	background-color: #8080ff;
+}
+
+#footer{
+	clear:both;
+}
+
+

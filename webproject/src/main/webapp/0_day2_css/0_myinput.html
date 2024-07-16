@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <style>
+	body{
+		background-color: lightblue;
+	}
+	
+	label{
+		display: inline-block;
+		width:100px;
+	}
+	input{
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		width: 200px;
+    	text-align: center;
+   	    height: 20px;
+   	    margin: 5px 0;
+	}
+	legend{
+		text-align: left;
+    	color: #000;
+	}
+	fieldset{
+		border:1px solid #ddd;
+	    border-radius: 15px;
+        margin: 10px 0;
+	}
+	.btn{
+	    background-color: #333333;
+	    color: #fff;
+	    height: 35px;
+	    width: 100%;
+	}
+	#container{
+		background-color: #fff;
+		text-align: center;
+		border-radius: 30px;
+		width: 400px;
+		margin: 0 auto;
+		padding:30px;
+	}
+	h1{
+		color: #fff;
+		text-align: center;
+	}
+</style>
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<h1>회원가입</h1>
+<div id="container">
+	<form action="0_inputMember.jsp" method="post">
+		<fieldset>
+			<legend>정보 입력</legend>
+			<label for="userid">아이디</label>
+			<input name="uid" id="userid" type="text" required="required">
+			<br>
+			<label for="userpw">비밀번호</label>
+			<input name="upw" id="userpw" type="password" maxlength="5" placeholder="숫자 5자리" required="required">
+			<br>
+			<label for="username">이름</label>
+			<input name="uname" id="username" type="text" required="required">
+			<br>
+			<label for="userphone">전화번호</label>
+			<input name="uphone" id="userphone" type="tel" placeholder="010-0000-0000" pattern="[01]{3}-[0-9]{4}-[0-9]{4}" required="required">
+			<br>
+			<label for="userdate">생년월일</label>
+			<input name="udate" type="date" />
+			
+		</fieldset>
+		<input type="button" class="btn btn-success" value="Input Button">
+	</form>
+</div>
+</body>
+</html>

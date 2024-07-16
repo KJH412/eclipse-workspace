@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+div {
+	width: 200px;
+	height: 100px;
+	border: 3px solid #73AD21;
+}
+div.relative {
+	width: 400px;
+	height: 200px;
+	position: relative; /* relative 본래 위치에서 이동 */
+	top: 20px;
+	left: 30px;
+}
+div.absolute {
+	position: absolute; /* absolute 부모 위치 기준으로 이동 */
+	top: 80px;
+	right: 0;
+}
+div.fixed {
+	position: fixed;
+	bottom: 80px;
+	right: 30px;
+}
+.static {
+	position: static;
+}
+</style>
+</head>
+<body>
+	<h2>position: absolute;</h2>
+
+	<p>An element with position: absolute; is positioned relative to
+		the nearest positioned ancestor (instead of positioned relative to the
+		viewport, like fixed):</p>
+
+	<div class="relative">
+		This div element has position: relative;
+		<div class="absolute">This div element has position: absolute;</div>
+	</div>
+	<div class="fixed">
+		fixedfixedfixedfixedfixedfixedfixedfixedfixedfixedfixed</div>
+	<div class="static">"static""static"</div>
+</body>
+</html>

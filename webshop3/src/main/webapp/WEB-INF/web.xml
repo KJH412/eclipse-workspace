@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>webshop3</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 에러페이지 -->
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/jsp/error500.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/jsp/error404.jsp</location>
+  </error-page>
+  
+  
+  
+  
+  <!--
+  	   web.xml 설정파일이기 때문에 값을 담아놓고 사용. 
+  	   패스워드,전화번호 등 가변 값을 설정할 수 있음. (html에서 직접 쓰지x)
+   -->
+  <!-- 초기값 설정, 파라미터 등록 -->
+  <!-- context-param : servletcontext 통해서 읽음, 모든 서블릿이 공유 -->
+  <context-param>
+  	<param-name>menu_member</param-name>
+  	<param-value>회원등록 회원수정 회원조회</param-value>
+  </context-param>
+  
+   <context-param>
+  	<param-name>menu_order</param-name>
+  	<param-value>order등록 order수정 order조회</param-value>
+  </context-param>
+  
+   <context-param>
+  	<param-name>bankname</param-name>
+  	<param-value>우리은행</param-value>
+  </context-param>
+  
+  <!-- servlet init-param: 해당 서블릿에서만 접근 가능 -->
+  <!-- load-on-startup : 지정한 숫자가 0보다 크면 서버가 실행될 때 요청하지 않아도 자동 생성 -->
+	<servlet>
+		<servlet-name>init2</servlet-name>
+		<servlet-class>com.shinhan.controller3.InitParamServlet</servlet-class>
+		<init-param>
+			<param-name>myname</param-name>
+			<param-value>swimming</param-value>
+		</init-param>
+		<init-param>
+			<param-name>email</param-name>
+			<param-value>sy_0826@naver.com</param-value>
+		</init-param>
+		<init-param>
+			<param-name>phone</param-name>
+			<param-value>010-1234-5678</param-value>
+		</init-param>
+		<!-- <load-on-startup>1</load-on-startup> -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>init2</servlet-name>
+		<url-pattern>/init3</url-pattern>
+	</servlet-mapping>
+  
+
+ <!-- DB 설정
+  <resource-ref>
+	 <description>Oracle Datasource example</description>
+	 <res-ref-name>jdbc/myoracle</res-ref-name>
+	 <res-type>javax.sql.DataSource</res-type>
+	 <res-auth>Container</res-auth>
+  </resource-ref>
+   -->
+  
+  <!-- 서블릿 주소 -->
+  <servlet>
+  	<servlet-name>aa</servlet-name>
+  	<servlet-class>com.shinhan.controller.FirstServlet</servlet-class>
+  </servlet>
+   <!-- 서블릿 주소 매핑(어노테이션과 같이 쓰고 싶으면 서블릿파일의@WebServlet()과 이름겹치지 않아야 함. -->
+  <servlet-mapping>
+  	<servlet-name>aa</servlet-name>
+  	<url-pattern>/FirstServlet2</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>aa</servlet-name>
+  	<url-pattern>/first3</url-pattern>
+  </servlet-mapping>
+</web-app>

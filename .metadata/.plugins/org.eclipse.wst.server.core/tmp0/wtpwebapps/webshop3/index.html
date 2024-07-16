@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 절대경로시 :/webshop/.../ (http://192.168.0.151:9090) -->
+	<!-- 상대경로시 ./ => 현재index.html은 webshop바로 아래있다. -->
+	<h1>JSP/Servlet시작</h1>
+	<hr>
+	<ul>
+		<!-- get요청 -->
+		<!-- a는 링크에 주소를 직접 넣어줘야 한다. ?name=값 으로 직접 적어서 넣어 줄 수 있다. -->
+		<li><a href="/webshop3/first?userid=100">first서블릿 연결(절대)</a></li>
+		<li><a href="first?userid=200">first서블릿 연결(상대)</a></li>
+		<li>
+		<!-- get요청 -->
+		<!-- method 안적어주면 기본 설정 get으로 요청된다. 
+			 form일 경우 input의 이름으로 값을 넘겨줄 수 있다.
+		-->
+			<form action="first" method="get">
+				<input type="text" name="userid" value="300">
+				<input type="submit" value="get요청">
+			</form>
+		</li>
+		<li>
+		<!-- post요청, http://ip:post -->
+			<form action="first" method="post">
+				<input type="text" name="userid" value="400">
+				<input type="submit" value="post요청">
+			</form>
+		</li>
+		<!-- get -->
+		<!-- http://ip:post/webshop/주소(emp/empDetail) -->
+		<li><a href="/webshop3/emp/emplist.do">모든 직원 조회</a></li>
+		<li>
+			<!-- <form action="empDetail" method="get"> 서블릿도 경로 맞춰 변경해야함 -->
+			<form action="emp/empDetail.do" method="get">
+				<input type="text" name="empid" value="100">
+				<input type="submit" value="직원정보">
+			</form>
+		</li>
+		<hr>
+		<li><a href="/webshop3/dept/deptList.do">모든 부서 조회</a></li>
+		<li><a href="/webshop3/dept/deptInsert.do">부서 입력</a></li>
+		<li>
+			<form action="dept/deptDetail.do" method="get">
+				<input type="text" name="deptid" value="100">
+				<input type="submit" value="부서정보">
+			</form>
+		</li>
+		<hr>
+		<li>
+			<form action="jsp/set">
+				<input type="text" name="myname" value="이름">
+				<input type="submit" value="서버전송">
+			</form>
+		</li>
+		<!-- 쿠키 -->
+		<li>
+			<form action="jsp/cookieSet">
+				<input type="text" name="userid" value="testid">
+				<input type="text" name="userpw" value="1234">
+				<input type="submit" value="로그인(쿠키 연습)">
+			</form>
+		</li>
+		<!-- 세션 -->
+		<li>
+			<form action="jsp/setSession">
+				<input type="text" name="userid" value="jung">
+				<input type="text" name="userpw" value="12345">
+				<input type="submit" value="로그인(세션 연습)">
+			</form>
+		</li>
+	</ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,154 @@
+.stc_footer{
+    background-color: #f1f1f1;
+    border-top: 1px solid #e5e5e5;
+    height: 200px;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.stc_footer a{
+    color: #666;
+    letter-spacing: -0.05em;
+    font-family: "NanumBarunGothic";
+}
+/* 1. footer top */
+.footer_top{
+    display: flex;
+    justify-content: space-between;
+}
+.sns_wrap>ul{
+    display: flex;
+    gap: 20px;
+}
+.site_wrap{
+    display: flex;
+    gap: 5px;
+}
+.pageTop_btn>button{
+    text-indent: -9999px;
+    display: block;
+    width: 35px;
+    height: 35px;
+    background: #555555 url(../images/btn/site_top.png) no-repeat center;
+}
+/* 링크버튼,리스트 공통사항 */
+.site{
+    position: relative;
+}
+.link_btn button{
+    width: 160px;
+    height: 35px;
+    text-align: left;
+    color: #666;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    background: #fff url(../images/btn/sites_on_arrow.png) no-repeat right 15px center;
+}
+.site .link_list{
+    /* display: none; */
+    overflow-y: scroll;
+    position: absolute;
+    right: 0;
+    bottom: 34px;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    height: 450px;
+    z-index: 99;
+}
+.link_list a{
+    font-size: 15px;
+}
+/* global site */
+.global .site{
+    width: 200px;
+}
+.global .link_list li{
+    cursor: pointer;
+    padding: 6px;
+}
+.global .link_list li:hover{
+    background-color: #e5e5e5;
+}
+.global .link_list{
+    width: 200px;
+    display: none;
+}
+.global .on.link_list{
+    display: block;
+}
+/* family site */
+.family .site{
+    width: 400px;
+}
+.family .link_list{
+    display: none;
+    width: 360px;
+    padding: 0 30px;
+}
+.family .on.link_list{
+    display: block;
+}
+.family .link_list li{
+    padding: 15px 0;
+}
+.link_list .tit{
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+}
+.family .tit span{
+    color: #000;
+    font-size: 17px;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+.family .tit a{
+    display: block;
+    text-align: right;
+    padding-left: 150px;
+    line-height: 25px;
+}
+.family .tit a:hover{
+    color: red;
+}
+
+/* 2. footer top */
+.util{
+    display: flex;
+    padding: 20px 0 10px;
+}
+.util>li{
+    padding-right: 10px;
+}
+.util>li>a{
+    font-weight: 700;
+    color: #333;
+    font-size: 15px;
+}
+/* 3. footer bottom */
+.adr_p{
+    font-size: 13px;
+    padding: 7px 0 15px;
+}
+.adr_p span{
+    position: relative;
+    padding: 0 25px;
+}
+.adr_p span:first-child,.adr_p span:last-child{
+padding-left: 0;
+}
+.adr_p span:before{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+    width: 1px;
+    height: 10px;
+    background: #ccc;
+}
+.copy{
+    color: #666;
+}
+.copy>span{
+    display: block;
+}

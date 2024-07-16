@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>익명함수</title>
+<script type="text/javascript">
+	window.onload = init; //콜백함수
+	function init(){
+		//함수()괄호를 쓰지 않는 이유는 클릭했을 때 호출되도록 하기 위해서.
+		//함수에 ()를 붙여주면 윈도우가 load됐을 때 이벤트와 상관없이 호출-실행됨.
+		document.querySelector("#btn1").addEventListener("click", f1); 
+		document.querySelector("#btn2").addEventListener("click", f2);  
+		document.querySelector("#btn3").addEventListener("click", f3); 
+		document.querySelector("#btn4").addEventListener("click", f4); 
+		document.querySelector("#btn5").addEventListener("click", f5); //콜백함수
+		document.querySelector("#btn6").addEventListener("click", f6); 
+		document.querySelector("#btn7").addEventListener("click", f7); 
+		document.querySelector("#btn8").addEventListener("click", f8); //클로저
+		document.querySelector("#btn9").addEventListener("click", f9); 
+		document.querySelector("#btn10").addEventListener("click", f10); 
+		document.querySelector("#btn11").addEventListener("click", f11); 
+		document.querySelector("#btn12").addEventListener("click", f12); //인코딩,디코딩
+		document.querySelector("#btn13").addEventListener("click", f13); 
+		document.querySelector("#btn14").addEventListener("click", f14); //eval()함수
+		document.querySelector("#btn15").addEventListener("click", f15);
+		document.querySelector("#btn16").addEventListener("click", f16);
+	}
+	function f16(){
+		//call16(100);
+		call16(100,2,3);
+	}
+	function call16(a,b,c){
+		//var second = b || 200;
+		//var second = b == undefined? 200 : b; //undefined->매개변수로 들어온 값이 없을 경우 대비.
+		//var third = c || 300;
+		//var third = c ==undefined? 300 : c;
+		here.innerHTML = a + b + c;
+		
+	}
+	function f15(){
+		//NaN(Not a Number) : 숫자와 숫자가 아닌 것을 연산한 경우 retrun값으로 나옴.
+		//Number:숫자형 문자가 아니면 불가, parseInt : 앞부분 숫자만 가져온다.
+		var num1 = parseInt(document.querySelector("#num1").value) + 200;
+		here.innerHTML = num1;
+	}
+	//======================사칙연산(eval함수)===================
+	function f14(){
+		var num1 = document.querySelector("#num1").value; //값얻기
+		var num2 = document.querySelector("#num2").value;
+		var op = document.querySelector("#op").value;
+		var result = document.querySelector("#result");
+		
+		//console.log(num1+ op + num2);
+		result.value = eval(num1+ op + num2);
+	}
+	//=======================================================
+	function f13(){
+		var s = "a=10; b=20; c=a+b; alert(c)";
+		eval(s);
+	}
+	function f12(){
+		var url = "http://localhost:9090/webproject/0_day6/인코딩연습.jsp?name=홍길동";
+		//here.innerHTML = escape(url);
+		here.innerHTML = encodeURIComponent(url);//인코딩
+		here.innerHTML += "<hr>"+decodeURIComponent(here.innerHTML);//디코딩
+		
+	}
+	//------------------------------
+	//선언적 함수(함수 이름을 부여함.)
+	function f1(){
+		//익명함수를 변수에 넣어 호출한다.
+		var call = function(a,b){
+			document.querySelector("#here").innerHTML = "<h1>익명함수"+ (a+b) +"</h1>"
+		};
+		call(1,2); //함수 호출
+		console.log(call);
+	} //변수에 넣는 것?은 ;세미콜론 안쓴다.
+	//---------------
+	function f2(){
+		//함수를 ()로 감싸주면 즉시 실행된다.
+		(function(a,b){
+			document.querySelector("#here").innerHTML = "<h1>익명함수(즉시실행)"+ (a+b) +"</h1>"
+		})(100,200);
+	}
+	//---------------
+	function f3(){
+		document.querySelector("#here").innerHTML =  sumAll(1,2,3,4,5);
+	}
+	//argument개수는 일치하지 않아도 무관, 보낸 개수보다 적으면 Undefined
+	//NaN(Not a Number) //sumAll(1);
+	//같은 이름의 함수가 있으면 나중에 쓴 함수가 적용된다.
+	function sumAll(a,b){//파라미터 개수가 맞지 않아도 오류X
+		var total = 0;
+		for(let i=0; i<arguments.length; i++){ //가변인자:arguments
+			total += arguments[i];
+		}
+		return total; 
+	}
+	function sumAll(){ //적용됨.
+		return 100;
+	}
+	//---------------
+	function f4(){
+		var width = 3;
+		var height = 4;
+		var result = Math.sqrt(sqrt(width) + sqrt(height));
+		document.querySelector("#here").innerHTML = result;
+		//내부함수
+		function sqrt(a){
+			return a*a;
+		}	
+	}
+	//같은 위치에 같은 이름을 갖고있는 함수가 있으면 마지막에 있는 함수가 적용된다. 
+	//(적용하고 싶은 함수는 내부함수에 넣어주면 된다.)
+	function sqrt(a,b,c){ 
+		return a;
+	}	
+	//---------------
+	function f5(){
+		var call2 = function(){
+			document.querySelector("#here").innerHTML = "callback함수";
+		};
+		call3(call2);
+	}
+	//callback함수 : 매개변수로 전달되는 함수. f는 call2함수이다.
+	function call3(f){
+		f(); //매개변수로 전달되고, 받은 쪽에서 호출한다.
+	}
+	//---------------
+	function f6(){
+		timer1 = setInterval(call6, 1000); //1초 마다 call6함수가 호출된다.
+	}
+	function call6(){
+		document.querySelector("#here").innerHTML = new Date();
+		
+	}
+	//---------------
+	function f7(){
+		clearInterval(timer1);
+	}
+	//------------------------------클로저
+	function f8(){
+		//클로저 : 규칙 위반
+		//지역변수는 지역을 벗어나면 소멸된다. 
+		//return되는 함수에 지역변수가 들어있으면 사라지지 않고 계속 사용 가능.(=클로저)
+		var result = call8(); //call8()함수 안에 있는 지역변수i의 값이 call8지역을 벗어나도 값이 유지된다.
+		document.querySelector("#here").innerHTML = result();
+	}
+	function call8(){
+		var i = 100; //지역변수
+		var f = function(){
+			i++;
+			return i;
+		};
+		return f;
+	}
+	//------------------------------
+	var result9 = add(10);//result9에 함수가 담긴다. 그걸 실행(호출)시켜준다.
+	var result10 = add(100);
+	function f9(){
+		document.querySelector("#here").innerHTML = result10();
+		//add();를 쓰면 'function(){ counter++; return counter; }' 함수내용이 나타남. 이 함수를 실행시켜야함.
+		//document.querySelector("#here").innerHTML = add()();
+		//										    = (function(){ counter++; return counter; })();
+	}
+	function add(counter){
+		//var counter = 0;
+		return function(){ 
+			counter++;
+			return counter; 
+		};
+	}	
+	//------------------------------
+	/*
+	function f10(){
+		//반복문이 먼저 끝나고 setTimeout실행됨.
+		//setTimeout(function(){alert(i);}, 0);  //[결과:3 3 3]
+		//for(var i=0; i<3; i++){
+		//	setTimeout(function(){alert(i);}, 0); //[결과:3 3 3]
+		//}
+		
+		//var i -> let i로 변경하면 정상실행. 
+		//var는 글로벌변수라 3이 되어 for문을 빠져나온 i값을 setTimeout이 가져다 쓰게 됨.
+		for(let i=0; i<3; i++){
+			//즉시 실행 함수로 변경
+			(function(){
+				setTimeout(function(){alert(i);}, 0);
+			})(i); //i를 함수에게 계속 넘겨준다.
+		}//i가 3일 때 for문 loop을 빠져나옴.
+	}
+	*/
+	function f10(){
+		//해결1...let
+		//해결2...var로 두고 i를 매개변수로 넘기고 즉시실행함수
+		//해결3...ES6 forEach
+		for(let i=0; i<3; i++){
+			(function(){
+				setTimeout(function(){alert(i);}, 0);
+			})(i); 
+		}
+		//i가 3일 때 loop을 빠져나옴.
+		for(var i=0; i<3; i++){
+			(function(arg){ 
+				setTimeout(function(){alert(arg);}, 0);
+			})(i); //i를 함수에 넣어주고 arg로 받는다.
+		}
+		var arr = [100,200,300];
+		arr.forEach(function(element, index, object){ //각각의 배열의 값에 이 함수(arg)가 들어간다.
+			console.log(element, index, object);	
+		});
+		
+	}
+	//------------------------------
+	function f11(){
+		var arr = [10,20,30];
+		arr.forEach( function(element, index, array){//콜백
+			alert(element + "=>" + index);
+		}); 
+	}
+</script>
+</head>
+<body>
+	<h1>Function</h1>
+	<button id="btn1">익명함수</button>
+	<button id="btn2">즉시실행함수</button>
+	<button id="btn3">가변인자</button>
+	<button id="btn4">내부함수</button>
+	<button id="btn5">callback함수</button>
+	<button id="btn6">callback함수(시계)</button>
+	<button id="btn7">시계멈추기</button>
+	<button id="btn8">함수리턴(클로저 사용)</button>
+	<button id="btn9">Counter(클로저 이용)</button>
+	<button id="btn10">클로저이용</button>
+	<button id="btn11">클로저이용(ES6기능)</button>
+	<button id="btn12">인코딩/디코딩</button>
+	<button id="btn13">eval함수</button>
+
+	<hr>
+	<div id="here">여기</div>
+	<hr>
+	<h1>사칙연산(eval함수이용)</h1>
+	<input type="text" id="num1">
+	<select id="op">
+		<option value="+">더하기</option>
+		<option value="-">빼기</option>
+		<option value="/">나누기</option>
+		<option value="*">곱하기</option>
+	</select>
+	<input type="number" id="num2">
+	<button id="btn14">=</button>
+	<input type="number"  readonly="readonly" id="result">
+	<hr>
+	<button id="btn15">숫자변환</button>
+	<button id="btn16">매개변수의 default값</button>
+</body>
+</html>

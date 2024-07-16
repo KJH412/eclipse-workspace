@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers> 
+	<customer>
+		<name>신현상</name>
+		<age>20</age>
+	</customer>
+	<customer>
+		<name>신현상2</name>
+		<age>30</age>
+	</customer>
+</customers>
+
+<!-- 
+1.xls,word
+2.XML(설정파일 만들 때 많이 씀), DTD, 스키마   
+3.★JSON (데이터 교환용)
+-->

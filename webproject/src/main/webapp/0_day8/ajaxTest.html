@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script>
+	$(function(){
+		$("button:nth-of-type(1)").on("click", f1);
+		$("button:nth-of-type(2)").on("click", f2);
+		$("button:nth-of-type(3)").on("click", f3);
+		$("button:nth-of-type(4)").on("click", f4);
+		$("button:nth-of-type(5)").on("click", f5);
+		//jquery
+		$("button:nth-of-type(6)").on("click", f6);
+		$("button:nth-of-type(7)").on("click", f7);
+		$("button:nth-of-type(8)").on("click", f8);
+		$("button:nth-of-type(9)").on("click", f9);
+		$("button:nth-of-type(10)").on("click", f10);
+		
+	});
+	//빗썸 가상자산 현재가 정보 API
+	function f10(){
+		const options = {method: 'GET', headers: {accept: 'application/json'}};
+		 
+		fetch('https://api.bithumb.com/public/ticker/ALL_KRW', options)
+		  .then(response => response.json())
+		  .then(response => { //여러 줄 쓰기위해 {}로 감쌈.
+			  //console.log(response);
+				var output =`
+				<table border = "1">
+					  <tr>
+						<td>종목이름</td>
+					  	<td>acc_trade_value</td>
+					  	<td>acc_trade_value_24H</td>
+					  	<td>closing_price</td>
+					  	<td>fluctate_24H</td>
+					  	<td>fluctate_rate_24H</td>
+					  	<td>max_price</td>
+					  	<td>min_price</td>
+					  	<td>opening_price</td>
+					  	<td>prev_closing_price</td>
+					  	<td>units_traded</td>
+					  	<td>units_traded_24H</td>
+					  </tr>
+			  `;  
+			 
+			  for(let 종목 in response.data){
+					  //console.log(종목); //종목 이름
+					  console.log(response.data[종목]); //해당종목의 정보들
+					
+					  if(종목 =='date'){
+						  output += "<tr>";
+						  continue;
+					  }
+					  output += `<tr> <td>${종목}</td>`;
+					  for(let key in response.data[종목]){
+						output += `<td>${response.data[종목][key]}</td>`;
+						  //console.log("**"+response.data[종목][key]); 
+					  }
+					  output += "</tr>";
+		  		}
+			 	$("#here").html(output);
+		  })
+		  .catch(err => console.error(err));
+		
+		//response.data[key]콘솔출력결과
+		//acc_trade_value: "63598191.34103396680864405208"
+		//acc_trade_value_24H: "188452079.32995434700068644211"
+		//closing_price: "11.42"
+		//fluctate_24H: "0.05"
+		//fluctate_rate_24H: "0.44"
+		//max_price: "11.47"
+		//min_price: "11.23"
+		//opening_price: "11.36"
+		//prev_closing_price: "11.36"
+		//units_traded: "5623449.967169479996903141"
+		//units_traded_24H: "16734559.92171339797
+		
+	}
+
+	function f9(){
+	
+		$.getScript("external.js", function(response){
+			console.log(response);//스크립트 파일 속에 있는 것들
+			call();
+		});
+	}
+	function f8(){
+		//현재 view가 그대로 있고 서버에 다녀온다.
+		var data = {"empid": $("#empid").val()};
+		var callbackMethod = function(result){
+			var obj = JSON.parse(result);
+			$("#here").html(obj.이름);
+		};
+ 		$.get("empDetail2.jsp", data, callbackMethod);
+	}
+	//$.ajax()메소드--->가장 많이 사용. 
+	function f7(){ 
+		//현재 view가 그대로 있고 서버에 다녀온다.
+		$.ajax({
+			//url:"empDetail.jsp?empid=" + $("#empid").val(), (지저분함)
+			//url:"empDetail.jsp", //html형태 데이터
+			url:"empDetail2.jsp",
+			type:"get", //데이터 get방식으로 보냄.
+			//data: {"empid": 100}, //object
+			data: {"empid": $("#empid").val()}, //보내는 data
+			success: function(result, status, xhr){
+				//result 받는 값
+				//$("#here").html(result);//=$("#here").load("주소url");
+				//-->html을 화면에 출력한 것. empDetail.jsp의 ul>li
+				//회원가입 등 페이지가 리프레쉬되면 안되기 때문에 json
+				var obj = JSON.parse(result);
+				$("#here").html(obj.이름);
+				
+			},
+			error:function(xhr, status, error){}
+			
+		});
+	}
+	/*reload가 아니라 페이지 정보를 '가져오는' 것임, input에 입력하고 버튼클릭해보기*/
+	function f6(){
+		$("#here").load("11-17.html");
+	}
+	
+	
+	function f5(){ //오류
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			console.log(xhr.responseText);
+			var obj = JSON.parse(xhr.responseText);
+			var arr = obj.emplist;
+			var output = "";
+			$.each(arr, function(index, item){ //js는 item,index순서
+				
+				output += `<tr> 
+					<td>${item.no}</td>
+					<td>${item.name}</td>
+					<td>${item.capital}</td>
+					<td>${item.region}</td>
+				</tr>`;
+			});
+			$("#data-table").html(output);
+		};
+		xhr.open("get","emplist2.jsp", true); //비동기
+		xhr.send();
+	}
+	
+	function f4(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			$("#data-table").html(xhr.responseText);
+		};
+		xhr.open("get","emplist.jsp", true); //비동기
+		xhr.send();
+	}
+	
+	function f3(){ //json객체
+		//XMLHttpRequest:자바스크립트에서 ajax사용하는 객체
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			//서버로 전송하기 전,후를 체크하여 원하는 데이터를 얻을 수 있다.
+			if(xhr.readyState == 4 && xhr.status==200){
+				//parse: json객체 파싱하기(데이터 문자열->json형태로)
+				var obj = JSON.parse(xhr.responseText);				
+				var arr = obj.nations;
+				console.log(arr);
+				var output = "";
+				$.each(arr, function(index, item){
+					console.log(item);
+					output += `<tr> <td>${item.no}</td>
+									<td>${item.name}</td>
+									<td>${item.capital}</td>
+									<td>${item.region}</td>
+								</tr>`;
+				});
+				
+				$("#data-table").html(output);
+				
+			}else if(xhr.status == 404){
+				$("#here").html("존재하지 않는 페이지입니다.");
+			}
+		}; 
+		xhr.open("get","data.json", true); //비동기 true (생략가능)
+		xhr.send(); //전송
+		//$("#here").html("------------<hr>"); 
+		//--->$("#here").html: div#here의 내부 html를 다 지우고 새로 덮기 때문에 
+		//--->데이터를 onreadystatechange할 때 div#data-table을 찾지못한다.(오류)
+		
+	}
+	function f2(){
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			//서버로 전송하기 전,후를 체크하여 원하는 데이터를 얻을 수 있다.
+			if(xhr.readyState == 4 && xhr.status==200){
+				var s = $("#here").html();
+				$("#here").html(s + xhr.responseText);
+			}else if(xhr.status == 404){
+				$("#here").html("존재하지 않는 페이지입니다.");
+			}
+		}; 
+		xhr.open("get","11-17.html", true); //비동기 true (생략가능)
+		xhr.send(); //전송
+		$("#here").html("------------<hr>");
+	}
+	
+	//ajax 동기 방식
+	function f1(){
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open("get","11-17.html",false);	//false -> 동기, true -> 비동기
+		xhr.send(); //동기(false)이면 요청하고 응답이 올 때 까지 기다린다.
+		
+		//비동기(true)이면 서버에서의 응답을 기다리지 않고 아래 문장을 이동한다.
+		//console.log(xhr.responseText);
+		$("#here").html(xhr.responseText);
+	}
+</script>
+</head>
+<body>
+	<h1>A j a x 연습</h1>
+	<input id="empid" value="100"> 
+	<button>js이용1(동기 통신)</button>
+	<button>js이용2(비동기 통신)</button>
+	<button>js이용3(비동기 통신 JSON)</button>
+	<button>js이용4(JSP)</button>
+	<button>js이용5(JSON)</button>
+	<button>jQuery이용6(load)</button>
+	<button>jQuery이용7(a j a x)</button>
+	<button>jQuery이용8(get/post)</button>
+	<button>jQuery이용9(javaScript 가져오기)</button>
+	<button>jQuery이용10(fetch)</button>
+	<hr>
+	<div id="here">
+		<table border="1">
+			<thead>
+				<th>no</th>
+				<th>name</th>
+				<th>capital</th>
+				<th>region</th>
+			</thead>
+			<tbody id="data-table">
+			
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

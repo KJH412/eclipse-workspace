@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/logo/shortcut_logo.png">
+    <title>세이브더칠드런</title>    
+    <!-- css -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <!-- js -->
+    <!-- <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script> -->
+    <script src="js/footer.js"></script>
+</head>
+<body>
+    <!-- header -->
+    <div data-include-path="header.html"></div>
+    <!-- 본문 (아직 내용 없음)-->
+    <div class="container">
+        <div class="mainBanner"></div>
+    </div>
+    <!-- footer -->
+    <div data-include-path="footer.html"></div>     
+</body>
+    <!-- header,footer include -->    
+    <script>       
+        window.addEventListener('load', function() {
+            var allElements = document.getElementsByTagName('*');
+            Array.prototype.forEach.call(allElements, function(el) {
+                var includePath = el.dataset.includePath;
+                if (includePath) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            el.outerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open('GET', includePath, true);
+                    xhttp.send();
+                }
+            });
+        }); 
+        // 함수에 담았을 때
+        // window.addEventListener('load', function() {
+        //     var allElements = document.getElementsByTagName('*');
+        //     Array.prototype.forEach.call(allElements, function(el) {
+        //         var includePath = el.dataset.includePath;
+        //         if (includePath) {
+        //             var xhttp = new XMLHttpRequest();
+        //             xhttp.onreadystatechange = function () {
+        //                 if (this.readyState == 4 && this.status == 200) {
+        //                     el.outerHTML = this.responseText;
+        //                     // footer.js 파일에서 정의된 함수 실행
+        //                     Footer();
+        //                 }
+        //             };
+        //             xhttp.open('GET', includePath, true);
+        //             xhttp.send();
+        //         }
+        //     });
+        // });
+    </script>
+     <!-- <script src="js/footer.js"></script> -->
+</html>
